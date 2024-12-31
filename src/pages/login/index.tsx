@@ -64,7 +64,7 @@ const LoginPage = () => {
         onChange={text => dispatch(setUsername(text))}
         placeholder="Password"
         value={username}
-        iconSource={require('../../assets/icon/email.png')}
+        iconSource={require('../../assets/icon/key.png')}
         returnKeyType="next"
         secureTextEntry
       />
