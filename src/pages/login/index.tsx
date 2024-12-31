@@ -1,23 +1,48 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-  ActivityIndicator,
-  View,
   StyleSheet,
   Image,
   Text,
-  TextInput,
   TouchableOpacity,
+  Keyboard,
+  SafeAreaView,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import {useLoginMutation} from '../../redux/api/loginApi';
+import ProgressButton from './components/progress-button';
+import FormTextInput from './components/form-text-input';
+import {useAppDispatch, useAppSelector} from '../../lib/hooks/appHook';
+import {
+  resetAuth,
+  setPassword,
+  setUsername,
+} from '../../redux/slice/loginSlice';
+import {showToast} from '../../lib/utils/toast';
 
-const Login = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+const LoginPage = () => {
+  const dispatch = useAppDispatch();
+  const [login, {isLoading}] = useLoginMutation();
   const currentVersion = DeviceInfo.getVersion();
+  const {username, password} = useAppSelector(state => state.login);
+
+  const handleLogin = async () => {
+    Keyboard.dismiss();
+    if (username === '' || password === '') {
+      showToast("username & password can't empty");
+      return;
+    }
+
+    try {
+      const response = await login({title: username, body: password}).unwrap();
+      console.log('Login Successful:', response);
+      dispatch(resetAuth());
+    } catch (err) {
+      console.error('Login Failed:', err);
+    }
+  };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
         style={styles.bgImage}
         source={require('../../assets/dummy/bg.jpg')}
@@ -26,60 +51,36 @@ const Login = () => {
         style={{width: 100, marginTop: 50, marginBottom: 20, height: 100}}
         source={require('../../assets/logo/logo.png')}
       />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.inputs}
-          placeholder="Username"
-          underlineColorAndroid="transparent"
-          value={username}
-          onChangeText={currentUsername => setUsername(currentUsername)}
-          autoFocus={true}
-          returnKeyType="next"
-          onSubmitEditing={() => {}}
-        />
-        <Image
-          style={styles.inputIcon}
-          source={require('../../assets/icon/email.png')}
-        />
-      </View>
+      <FormTextInput
+        onChange={text => dispatch(setPassword(text))}
+        placeholder="Username"
+        value={password}
+        iconSource={require('../../assets/icon/email.png')}
+        returnKeyType="next"
+        autoFocus
+      />
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.inputs}
-          placeholder="Password"
-          secureTextEntry={true}
-          underlineColorAndroid="transparent"
-          value={password}
-          onChangeText={currentPassword => setPassword(currentPassword)}
-          onSubmitEditing={() => {}}
-        />
-        <Image
-          style={styles.inputIcon}
-          source={require('../../assets/icon/key.png')}
-        />
-      </View>
+      <FormTextInput
+        onChange={text => dispatch(setUsername(text))}
+        placeholder="Password"
+        value={username}
+        iconSource={require('../../assets/icon/email.png')}
+        returnKeyType="next"
+        secureTextEntry
+      />
 
       <TouchableOpacity style={styles.btnForgotPassword} onPress={() => {}}>
         <Text style={styles.btnText}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.buttonContainer, styles.loginButton]}
-        onPress={() => {}}
-        disabled={isRefreshing}>
-        <Text style={styles.loginText}>Login</Text>
-        {isRefreshing && (
-          <ActivityIndicator
-            size={'small'}
-            color={'white'}
-            animating={true}
-            style={{marginLeft: 8}}
-          />
-        )}
-      </TouchableOpacity>
+      <ProgressButton
+        isLoading={isLoading}
+        onPress={handleLogin}
+        text="Login"
+      />
 
       <Text>Version : {currentVersion}</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -90,73 +91,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DCDCDC',
   },
-  inputContainer: {
-    borderBottomColor: '#F5FCFF',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 30,
-    borderBottomWidth: 1,
-    width: 300,
-    height: 45,
-    marginBottom: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    shadowColor: '#808080',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
-  inputs: {
-    height: 45,
-    marginLeft: 16,
-    borderBottomColor: '#FFFFFF',
-    flex: 1,
-  },
-  inputIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 15,
-    justifyContent: 'center',
-  },
-  buttonContainer: {
-    height: 45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-    width: 300,
-    borderRadius: 30,
-    backgroundColor: 'transparent',
-  },
   btnForgotPassword: {
-    height: 15,
+    height: 24,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     marginBottom: 10,
     width: 300,
     backgroundColor: 'transparent',
-  },
-  loginButton: {
-    backgroundColor: '#00b5ec',
-
-    shadowColor: '#808080',
-    shadowOffset: {
-      width: 0,
-      height: 9,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 12.35,
-
-    elevation: 19,
-  },
-  loginText: {
-    color: 'white',
   },
   bgImage: {
     position: 'absolute',
@@ -169,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default LoginPage;

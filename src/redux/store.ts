@@ -1,8 +1,19 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {setupListeners} from '@reduxjs/toolkit/query';
+import {loginService} from './api/loginApi';
+import loginReducer from './slice/loginSlice';
+
+const rootReducer = combineReducers({
+  login: loginReducer,
+  [loginService.reducerPath]: loginService.reducer,
+});
+
+const apiMiddleware = [loginService.middleware];
 
 export const store = configureStore({
-  reducer: {},
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(apiMiddleware),
 });
 
 setupListeners(store.dispatch);
