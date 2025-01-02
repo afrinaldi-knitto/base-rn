@@ -37,3 +37,10 @@ Jalankan project ini dengan
   pnpm androidDevelopment
 ```
 
+## Build APK
+
+```bash
+  pnpm buildApkRelease
+```
+
+*note : sesuaikan kebutuhan file `.env` pada `package.json`
