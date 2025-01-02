@@ -19,9 +19,12 @@ import {
 } from '../../redux/slice/loginSlice';
 import {showToast} from '../../lib/utils/toast';
 import Config from 'react-native-config';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigation} from '../../lib/router/types';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<StackNavigation>();
   const [login, {isLoading}] = useLoginMutation();
   const currentVersion = DeviceInfo.getVersion();
   const {username, password} = useAppSelector(state => state.login);
@@ -37,11 +40,18 @@ const LoginPage = () => {
       const response = await login({title: username, body: password}).unwrap();
       console.log('Login Successful:', response);
       dispatch(resetAuth());
-      showToast(`Login Success ${response}`);
+      navigateToMain();
     } catch (err) {
       console.error('Login Failed:', err);
       showToast(`URL : ${Config.URL} Fail : ${JSON.stringify(err)}`);
     }
+  };
+
+  const navigateToMain = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Main'}],
+    });
   };
 
   return (
