@@ -9,7 +9,9 @@
     "start": "react-native start",
     "test": "jest",
     "androidDevelopment": "SET ENVFILE=.env.development && pnpm react-native run-android --mode=developmentDebug --appIdSuffix=development",
-    "androidStaging": "SET ENVFILE=.env.staging && pnpm react-native run-android --mode=stagingDebug --appIdSuffix=staging"
+    "androidStaging": "SET ENVFILE=.env.staging && pnpm react-native run-android --mode=stagingDebug --appIdSuffix=staging",
+    "buildApkDev": "SET ENVFILE=.env.development && pnpm react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && gradlew assembleDebug",
+    "buildApkRelease": "SET ENVFILE=.env.staging && pnpm react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && gradlew assembleRelease"
   },
   "dependencies": {
     "@kichiyaki/react-native-barcode-generator": "^0.6.7",

@@ -33,6 +33,10 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+/res/drawable-mdpi/
+/res/drawable-xhdpi/
+/res/drawable-xxhdpi/
+/res/drawable-xxxhdpi/
 
 # node.js
 #

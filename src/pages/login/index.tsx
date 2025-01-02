@@ -18,6 +18,7 @@ import {
   setUsername,
 } from '../../redux/slice/loginSlice';
 import {showToast} from '../../lib/utils/toast';
+import Config from 'react-native-config';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -36,8 +37,10 @@ const LoginPage = () => {
       const response = await login({title: username, body: password}).unwrap();
       console.log('Login Successful:', response);
       dispatch(resetAuth());
+      showToast(`Login Success ${response}`);
     } catch (err) {
       console.error('Login Failed:', err);
+      showToast(`URL : ${Config.URL} Fail : ${JSON.stringify(err)}`);
     }
   };
 
@@ -79,7 +82,9 @@ const LoginPage = () => {
         text="Login"
       />
 
-      <Text>Version : {currentVersion}</Text>
+      <Text>
+        Version : {currentVersion} - {Config.ENV}
+      </Text>
     </SafeAreaView>
   );
 };
