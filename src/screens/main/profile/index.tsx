@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const HomePage = () => {
+const ProfileScreen = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Home Screen</Text>
+      <Text>profile Screen</Text>
     </View>
   );
 };
 
-export default HomePage;
+export default ProfileScreen;

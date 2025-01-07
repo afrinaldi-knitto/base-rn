@@ -1,17 +1,17 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
-import LoginPage from '../../pages/login';
-import MainPage from '../../pages/main';
+import LoginScreen from '../screens/login';
+import MainScreen from '../screens/main';
 import {createStaticNavigation} from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>({
   screens: {
-    Login: LoginPage,
-    Main: MainPage,
+    Login: LoginScreen,
+    Main: MainScreen,
   },
   screenOptions: {
     headerShown: false,
   },
 });
 
-export const MainRouter = createStaticNavigation(Stack);
+export const MainNavigation = createStaticNavigation(Stack);

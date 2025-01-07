@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {setupListeners} from '@reduxjs/toolkit/query';
-import {loginService} from './api/loginApi';
-import loginReducer from './slice/loginSlice';
+import {loginService} from './api/login-api';
+import loginReducer from './slice/login-slice';
 
 const rootReducer = combineReducers({
   login: loginReducer,

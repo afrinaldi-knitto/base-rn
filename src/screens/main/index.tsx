@@ -1,8 +1,8 @@
-import {BottomTab} from '../../lib/router/bottomRouter';
+import {BottomTab} from '../../navigation/bottom-navigation';
 import React from 'react';
-import HomePage from './home';
-import FavoritesPage from './favorites';
-import ProfilePage from './profile';
+import HomeScreen from './home';
+import FavoritesScreen from './favorites';
+import ProfileScreen from './profile';
 import {Heart, House, User} from 'lucide-react-native';
 
 const HomeIcon = ({color, size}: {color: string; size: number}) => (
@@ -17,7 +17,7 @@ const ProfileIcon = ({color, size}: {color: string; size: number}) => (
   <User color={color} size={size} />
 );
 
-const MainPage = () => {
+const MainScreen = () => {
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -27,21 +27,21 @@ const MainPage = () => {
       }}>
       <BottomTab.Screen
         name="Home"
-        component={HomePage}
+        component={HomeScreen}
         options={{
           tabBarIcon: HomeIcon,
         }}
       />
       <BottomTab.Screen
         name="Favorites"
-        component={FavoritesPage}
+        component={FavoritesScreen}
         options={{
           tabBarIcon: FavoritesIcon,
         }}
       />
       <BottomTab.Screen
         name="Profile"
-        component={ProfilePage}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ProfileIcon,
         }}
@@ -50,4 +50,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default MainScreen;

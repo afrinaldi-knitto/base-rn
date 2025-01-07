@@ -8,21 +8,21 @@ import {
   SafeAreaView,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-import {useLoginMutation} from '../../redux/api/loginApi';
+import {useLoginMutation} from '../../redux/api/login-api';
 import ProgressButton from './components/progress-button';
 import FormTextInput from './components/form-text-input';
-import {useAppDispatch, useAppSelector} from '../../lib/hooks/appHook';
+import {useAppDispatch, useAppSelector} from '../../lib/hooks/app-hook';
 import {
   resetAuth,
   setPassword,
   setUsername,
-} from '../../redux/slice/loginSlice';
+} from '../../redux/slice/login-slice';
 import {showToast} from '../../lib/utils/toast';
 import Config from 'react-native-config';
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigation} from '../../lib/router/types';
+import {StackNavigation} from '../../navigation/types';
 
-const LoginPage = () => {
+const LoginScreen = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<StackNavigation>();
   const [login, {isLoading}] = useLoginMutation();
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginPage;
+export default LoginScreen;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const FavoritesPage = () => {
+const FavoritesScreen = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Favorites Screen</Text>
@@ -9,4 +9,4 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+export default FavoritesScreen;
