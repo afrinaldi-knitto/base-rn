@@ -125,7 +125,7 @@ android {
     productFlavors {
         development {
             dimension 'default'
-            applicationIdSuffix ".dev"
+            applicationIdSuffix ".development"
             resValue "string", "build_config_package", "com.baseapprn"
         }
         staging {
