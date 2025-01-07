@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Button, View} from 'react-native';
-import {StackNavigation} from '../../../navigation/types';
+import {StackNavigation} from '../../../navigations/types';
 
 const HomeScreen = () => {
   const navigation = useNavigation<StackNavigation>();

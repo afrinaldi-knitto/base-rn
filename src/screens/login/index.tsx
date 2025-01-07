@@ -20,7 +20,7 @@ import {
 import {showToast} from '../../lib/utils/toast';
 import Config from 'react-native-config';
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigation} from '../../navigation/types';
+import {StackNavigation} from '../../navigations/types';
 
 const LoginScreen = () => {
   const dispatch = useAppDispatch();

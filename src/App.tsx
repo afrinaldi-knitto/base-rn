@@ -1,6 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {MainNavigation} from './navigation/main-navigation';
+import {MainNavigation} from './navigations/main-navigation';
 import {store} from './redux/store';
 import ErrorBoundary from 'react-native-error-boundary';
 import {Text, View} from 'react-native';

@@ -1,4 +1,4 @@
-import {BottomTab} from '../../navigation/bottom-navigation';
+import {BottomTab} from '../../navigations/bottom-navigation';
 import React from 'react';
 import HomeScreen from './home';
 import FavoritesScreen from './favorites';
